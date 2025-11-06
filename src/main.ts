@@ -25,7 +25,7 @@ const inputValues: Record<inputKeys, number | null> = {
   people: null,
 };
 
-let selectedRadioLabel: HTMLLabelElement;
+let previusLabel: HTMLLabelElement | null = null;
 btnReset.disabled = true;
 
 const calculateTotal = () => {
@@ -65,50 +65,26 @@ const handleInputs = (event: Event) => {
   }
 };
 
-inputBill.addEventListener("input", handleInputs);
-inputNumberPeople.addEventListener("input", handleInputs);
-
-inputTipPercentage.forEach((radio) => {
-  radio.addEventListener("input", (event) => {
-    const target = event.target as HTMLInputElement;
-    const labelSibling = target.nextElementSibling as HTMLLabelElement;
-    if (target.checked) {
-      if (inputValues.percentage) {
-        inputCustomTip.value = "";
-      }
-
-      if (selectedRadioLabel) {
-        selectedRadioLabel.htmlFor !== labelSibling.htmlFor
-          ? selectedRadioLabel.classList.remove(
-              "calculator__tip-label--selected"
-            )
-          : "";
-      }
-
-      selectedRadioLabel = labelSibling;
-      selectedRadioLabel.classList.add("calculator__tip-label--selected");
-      inputValues.percentage = Number(target.value);
-      calculateTotal();
-    }
-  });
-});
-
-inputCustomTip.addEventListener("input", (event) => {
+const handleInputsPercentage = (event: Event) => {
   const target = event.target as HTMLInputElement;
-  if (inputValues.percentage) {
-    inputTipPercentage!.forEach((radio) => {
-      (radio as HTMLInputElement).checked = false;
-    });
+  const labelSibling = target.previousElementSibling as HTMLLabelElement;
 
-    if (selectedRadioLabel) {
-      selectedRadioLabel.classList.remove("calculator__tip-label--selected");
-    }
+  if (target.type === "radio") {
+    previusLabel
+      ? previusLabel.classList.remove("calculator__tip-label--selected")
+      : "";
+    labelSibling.classList.add("calculator__tip-label--selected");
+    inputCustomTip.value = "";
+    previusLabel = labelSibling;
+  } else {
+    previusLabel?.classList.remove("calculator__tip-label--selected");
   }
+
   inputValues.percentage = Number(target.value);
   calculateTotal();
-});
+};
 
-btnReset.addEventListener("click", () => {
+const handleResetPage = () => {
   // reset values
   inputValues.bill = null;
   inputValues.percentage = null;
@@ -122,8 +98,9 @@ btnReset.addEventListener("click", () => {
   inputTipPercentage.forEach((radio) => {
     (radio as HTMLInputElement).checked = false;
   });
-  if (selectedRadioLabel) {
-    selectedRadioLabel.classList.remove("calculator__tip-label--selected");
+
+  if (previusLabel) {
+    previusLabel.classList.remove("calculator__tip-label--selected");
   }
 
   // reset input custom tip
@@ -145,4 +122,14 @@ btnReset.addEventListener("click", () => {
   // disabled button
   btnReset.disabled = true;
   btnReset.classList.add("calculator__reset--disabled");
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+  inputBill.addEventListener("input", handleInputs);
+  inputTipPercentage.forEach((radio) => {
+    radio.addEventListener("input", handleInputsPercentage);
+  });
+  inputCustomTip.addEventListener("input", handleInputsPercentage);
+  inputNumberPeople.addEventListener("input", handleInputs);
+  btnReset.addEventListener("click", handleResetPage);
 });
