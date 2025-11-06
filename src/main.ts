@@ -5,9 +5,7 @@ const inputTipPercentage = document.querySelectorAll(
 const inputCustomTip = document.getElementById(
   "tip-custom"
 ) as HTMLInputElement;
-const inputNumberPeople = document.getElementById(
-  "number-people"
-) as HTMLInputElement;
+const inputNumberPeople = document.getElementById("people") as HTMLInputElement;
 const spanError = document.querySelectorAll(
   ".calculator__span--error"
 ) as NodeList;
@@ -19,14 +17,20 @@ const spanTotalPerson = document.getElementById(
   "total-person"
 ) as HTMLSpanElement;
 
-let billValue: number | null;
+type inputKeys = "bill" | "percentage" | "people";
+
+const inputValues: Record<inputKeys, number | null> = {
+  bill: null,
+  percentage: null,
+  people: null,
+};
+
 let percentageValue: number | null;
-let peopleValue: number | null;
 let selectedRadioLabel: HTMLLabelElement;
 btnReset.disabled = true;
 
 const calculateTotal = () => {
-  if (!billValue || !peopleValue || !percentageValue) {
+  if (!inputValues.bill || !inputValues.people || !percentageValue) {
     return;
   }
 
@@ -36,28 +40,34 @@ const calculateTotal = () => {
   }
 
   const tipPerPerson: number =
-    (billValue * (percentageValue / 100)) / peopleValue;
-  const totalWithoutPerson = billValue / peopleValue;
+    (inputValues.bill * (percentageValue / 100)) / inputValues.people;
+  const totalWithoutPerson = inputValues.bill / inputValues.people;
   spanTipAmountPerson.innerText = `$${tipPerPerson.toFixed(2)}`;
   spanTotalPerson.innerText = `$${(tipPerPerson + totalWithoutPerson).toFixed(
     2
   )}`;
 };
 
-inputBill.addEventListener("input", (event) => {
+// Function to handle the inputs bill and people
+// where the value is extracted and stored in the inputValues ​​object
+const handleInputs = (event: Event) => {
   const target = event.target as HTMLInputElement;
   const spanError = target?.previousElementSibling?.children[1];
+  const key = target.id as inputKeys;
 
   if (target && target.value && Number(target.value) > 0) {
-    target?.classList.remove("calculator__input--error");
+    target.classList.remove("calculator__input--error");
     spanError?.classList.add("hide-span");
-    billValue = Number(target.value);
+    inputValues[key] = Number(target.value);
     calculateTotal();
   } else {
     spanError?.classList.remove("hide-span");
     target?.classList.add("calculator__input--error");
   }
-});
+};
+
+inputBill.addEventListener("input", handleInputs);
+inputNumberPeople.addEventListener("input", handleInputs);
 
 inputTipPercentage.forEach((radio) => {
   radio.addEventListener("input", (event) => {
@@ -96,34 +106,14 @@ inputCustomTip.addEventListener("input", (event) => {
     }
   }
   percentageValue = Number(target.value);
-});
-
-inputCustomTip.addEventListener("input", (event) => {
-  const target = event.target as HTMLInputElement;
-  percentageValue = Number(target.value);
   calculateTotal();
-});
-
-inputNumberPeople.addEventListener("input", (event) => {
-  const target = event.target as HTMLInputElement;
-  const spanError = target.previousElementSibling?.children[1];
-
-  if (target && target.value && Number(target.value) > 0) {
-    target?.classList.remove("calculator__input--error");
-    spanError?.classList.add("hide-span");
-    peopleValue = Number(target.value);
-    calculateTotal();
-  } else {
-    spanError?.classList.remove("hide-span");
-    target?.classList.add("calculator__input--error");
-  }
 });
 
 btnReset.addEventListener("click", () => {
   // reset values
-  billValue = null;
+  inputValues.bill = null;
   percentageValue = null;
-  peopleValue = null;
+  inputValues.people = null;
 
   // reset input bill
   inputBill.value = "";
