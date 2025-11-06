@@ -25,12 +25,11 @@ const inputValues: Record<inputKeys, number | null> = {
   people: null,
 };
 
-let percentageValue: number | null;
 let selectedRadioLabel: HTMLLabelElement;
 btnReset.disabled = true;
 
 const calculateTotal = () => {
-  if (!inputValues.bill || !inputValues.people || !percentageValue) {
+  if (!inputValues.bill || !inputValues.people || !inputValues.percentage) {
     return;
   }
 
@@ -40,7 +39,7 @@ const calculateTotal = () => {
   }
 
   const tipPerPerson: number =
-    (inputValues.bill * (percentageValue / 100)) / inputValues.people;
+    (inputValues.bill * (inputValues.percentage / 100)) / inputValues.people;
   const totalWithoutPerson = inputValues.bill / inputValues.people;
   spanTipAmountPerson.innerText = `$${tipPerPerson.toFixed(2)}`;
   spanTotalPerson.innerText = `$${(tipPerPerson + totalWithoutPerson).toFixed(
@@ -74,7 +73,7 @@ inputTipPercentage.forEach((radio) => {
     const target = event.target as HTMLInputElement;
     const labelSibling = target.nextElementSibling as HTMLLabelElement;
     if (target.checked) {
-      if (percentageValue) {
+      if (inputValues.percentage) {
         inputCustomTip.value = "";
       }
 
@@ -88,7 +87,7 @@ inputTipPercentage.forEach((radio) => {
 
       selectedRadioLabel = labelSibling;
       selectedRadioLabel.classList.add("calculator__tip-label--selected");
-      percentageValue = Number(target.value);
+      inputValues.percentage = Number(target.value);
       calculateTotal();
     }
   });
@@ -96,7 +95,7 @@ inputTipPercentage.forEach((radio) => {
 
 inputCustomTip.addEventListener("input", (event) => {
   const target = event.target as HTMLInputElement;
-  if (percentageValue) {
+  if (inputValues.percentage) {
     inputTipPercentage!.forEach((radio) => {
       (radio as HTMLInputElement).checked = false;
     });
@@ -105,14 +104,14 @@ inputCustomTip.addEventListener("input", (event) => {
       selectedRadioLabel.classList.remove("calculator__tip-label--selected");
     }
   }
-  percentageValue = Number(target.value);
+  inputValues.percentage = Number(target.value);
   calculateTotal();
 });
 
 btnReset.addEventListener("click", () => {
   // reset values
   inputValues.bill = null;
-  percentageValue = null;
+  inputValues.percentage = null;
   inputValues.people = null;
 
   // reset input bill
