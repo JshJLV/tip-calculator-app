@@ -14,140 +14,146 @@
     <title>Frontend Mentor | Tip calculator app</title>
   </head>
   <body>
-    <div class="container-img">
-      <img src="/src/img/logo.svg" alt="Logo" />
-    </div>
-    <main class="calculator">
-      <div class="calculator__form">
-        <div class="calculator__group">
-          <div class="calculator__div-text">
-            <label for="bill" class="calculator__label">Bill</label>
-            <span class="calculator__span--error hide-span">Can't be zero</span>
-          </div>
-          <input
-            type="number"
-            name="bill"
-            id="bill"
-            class="calculator__input"
-            placeholder="0"
-            autocomplete="off"
-          />
-        </div>
-        <div class="calculator__group">
-          <label for="tip-list" class="calculator__label">Select Tip %</label>
-          <ul class="calculator__tip-list">
-            <li>
-              <label for="5" class="calculator__tip-label">5%</label>
-              <input
-                type="radio"
-                name="tip-percentage"
-                id="5"
-                class="calculator__tip-radio"
-                value="5"
-                autocomplete="off"
-              />
-            </li>
-            <li>
-              <label for="10" class="calculator__tip-label">10%</label>
-              <input
-                type="radio"
-                name="tip-percentage"
-                id="10"
-                class="calculator__tip-radio"
-                value="10"
-                autocomplete="off"
-              />
-            </li>
-            <li>
-              <label for="15" class="calculator__tip-label">15%</label>
-              <input
-                type="radio"
-                name="tip-percentage"
-                id="15"
-                class="calculator__tip-radio"
-                value="15"
-                autocomplete="off"
-              />
-            </li>
-            <li>
-              <label for="25" class="calculator__tip-label">25%</label>
-              <input
-                type="radio"
-                name="tip-percentage"
-                id="25"
-                class="calculator__tip-radio"
-                value="25"
-                autocomplete="off"
-              />
-            </li>
-            <li>
-              <label for="50" class="calculator__tip-label">50%</label>
-              <input
-                type="radio"
-                name="tip-percentage"
-                id="50"
-                class="calculator__tip-radio"
-                value="50"
-                autocomplete="off"
-              />
-            </li>
-            <li>
-              <input
-                type="number"
-                name="tip-custom"
-                id="tip-custom"
-                class="calculator__tip-custom"
-                placeholder="Custom"
-                autocomplete="off"
-              />
-            </li>
-          </ul>
-        </div>
-        <div class="calculator__group">
-          <div class="calculator__div-text">
-            <label for="number-people" class="calculator__label"
-              >Number of People</label
-            >
-            <span class="calculator__span--error hide-span">Can't be zero</span>
-          </div>
-          <input
-            type="number"
-            name="people"
-            id="people"
-            class="calculator__input"
-            placeholder="0"
-            autocomplete="off"
-          />
-        </div>
+    <main>
+      <div class="container-img">
+        <img src="/src/img/logo.svg" alt="Logo" />
       </div>
+      <section class="calculator">
+        <div class="calculator__form">
+          <div class="calculator__group">
+            <div class="calculator__div-text">
+              <label for="bill" class="calculator__label">Bill</label>
+              <span class="calculator__span--error hide-span"
+                >Can't be zero</span
+              >
+            </div>
+            <input
+              type="number"
+              name="bill"
+              id="bill"
+              class="calculator__input"
+              placeholder="0"
+              autocomplete="off"
+            />
+          </div>
+          <div class="calculator__group">
+            <label for="tip-list" class="calculator__label">Select Tip %</label>
+            <ul class="calculator__tip-list">
+              <li>
+                <label for="5" class="calculator__tip-label">5%</label>
+                <input
+                  type="radio"
+                  name="tip-percentage"
+                  id="5"
+                  class="calculator__tip-radio"
+                  value="5"
+                  autocomplete="off"
+                />
+              </li>
+              <li>
+                <label for="10" class="calculator__tip-label">10%</label>
+                <input
+                  type="radio"
+                  name="tip-percentage"
+                  id="10"
+                  class="calculator__tip-radio"
+                  value="10"
+                  autocomplete="off"
+                />
+              </li>
+              <li>
+                <label for="15" class="calculator__tip-label">15%</label>
+                <input
+                  type="radio"
+                  name="tip-percentage"
+                  id="15"
+                  class="calculator__tip-radio"
+                  value="15"
+                  autocomplete="off"
+                />
+              </li>
+              <li>
+                <label for="25" class="calculator__tip-label">25%</label>
+                <input
+                  type="radio"
+                  name="tip-percentage"
+                  id="25"
+                  class="calculator__tip-radio"
+                  value="25"
+                  autocomplete="off"
+                />
+              </li>
+              <li>
+                <label for="50" class="calculator__tip-label">50%</label>
+                <input
+                  type="radio"
+                  name="tip-percentage"
+                  id="50"
+                  class="calculator__tip-radio"
+                  value="50"
+                  autocomplete="off"
+                />
+              </li>
+              <li>
+                <input
+                  type="number"
+                  name="tip-custom"
+                  id="tip-custom"
+                  class="calculator__tip-custom"
+                  placeholder="Custom"
+                  autocomplete="off"
+                />
+              </li>
+            </ul>
+          </div>
+          <div class="calculator__group">
+            <div class="calculator__div-text">
+              <label for="number-people" class="calculator__label"
+                >Number of People</label
+              >
+              <span class="calculator__span--error hide-span"
+                >Can't be zero</span
+              >
+            </div>
+            <input
+              type="number"
+              name="people"
+              id="people"
+              class="calculator__input"
+              placeholder="0"
+              autocomplete="off"
+            />
+          </div>
+        </div>
 
-      <div class="calculator__total">
-        <div class="calculator__total-row">
-          <div class="calculator__total-label">
-            <p class="calculator__total--white">Tip Amount</p>
-            <p class="calculator__text--gray">/ person</p>
+        <div class="calculator__total">
+          <div class="calculator__total-row">
+            <div class="calculator__total-label">
+              <p class="calculator__total--white">Tip Amount</p>
+              <p class="calculator__text--gray">/ person</p>
+            </div>
+            <div class="calculator__total-value">
+              <span id="tip-amount-person">$0.00</span>
+            </div>
           </div>
-          <div class="calculator__total-value">
-            <span id="tip-amount-person">$0.00</span>
+          <div class="calculator__total-row">
+            <div class="calculator__total-label">
+              <p class="calculator__total--white">Total</p>
+              <p class="calculator__text--gray">/ person</p>
+            </div>
+            <div class="calculator__total-value">
+              <span id="total-person">$0.00</span>
+            </div>
           </div>
+          <button
+            id="btn-reset"
+            class="calculator__reset calculator__reset--disabled"
+            type="button"
+          >
+            RESET
+          </button>
         </div>
-        <div class="calculator__total-row">
-          <div class="calculator__total-label">
-            <p class="calculator__total--white">Total</p>
-            <p class="calculator__text--gray">/ person</p>
-          </div>
-          <div class="calculator__total-value">
-            <span id="total-person">$0.00</span>
-          </div>
-        </div>
-        <button
-          id="btn-reset"
-          class="calculator__reset calculator__reset--disabled"
-          type="button"
-        >
-          RESET
-        </button>
-      </div>
+      </section>
     </main>
 
     <footer class="attribution">
